@@ -1,0 +1,25 @@
+<h1>Seznam uživatelů</h1>
+
+<a n:href="Users:default">Správa uživatelů</a>
+
+<p><a n:href="Users:edit">+ Přidat nového uživatele</a></p>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>ID</th>
+        <th>Jméno</th>
+        <th>E-mail</th>
+        <th>Akce</th>
+    </tr>
+    {foreach $users as $user}
+        <tr>
+            <td>{$user->id}</td>
+            <td>{$user->username}</td>
+            <td>{$user->email}</td>
+            <td>
+                <a n:href="Users:edit $user->id">✏️ Upravit</a>
+                <a n:href="delete! $user->id" onclick="return confirm('Opravdu smazat?')">🗑️ Smazat</a>
+            </td>
+        </tr>
+    {/foreach}
+</table>

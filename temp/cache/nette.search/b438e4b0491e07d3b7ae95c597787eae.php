@@ -15,7 +15,12 @@ return array (
     'App\\Presentation\\Home\\HomePresenter' => 
     array (
       0 => '/Applications/MAMP/htdocs/my-nette-project/app/Presentation/Home/HomePresenter.php',
-      1 => 1760190543,
+      1 => 1761131255,
+    ),
+    'App\\Presentation\\Users\\UsersPresenter' => 
+    array (
+      0 => '/Applications/MAMP/htdocs/my-nette-project/app/Presentation/Users/UsersPresenter.php',
+      1 => 1761131257,
     ),
     'App\\Presentation\\Accessory\\LatteExtension' => 
     array (

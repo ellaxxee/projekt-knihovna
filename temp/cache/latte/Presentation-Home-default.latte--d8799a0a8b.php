@@ -21,33 +21,89 @@ final class Template_d8799a0a8b extends Latte\Runtime\Template
 			return;
 		}
 
-		echo '<block content>
-    ';
-		echo LR\Filters::escapeHtmlText($promena) /* line 4 */;
+		echo '<base href="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 1 */;
+		echo '/">
+
+<h1>';
+		echo LR\Filters::escapeHtmlText($message) /* line 3 */;
+		echo '</h1>
+
+';
+		if ($editing) /* line 5 */ {
+			echo '    <h3>Edit user</h3>
+';
+		} else /* line 7 */ {
+			echo '    <h3>Add user</h3>
+';
+		}
+		echo "\n";
+		$ʟ_tmp = $this->global->uiControl->getComponent('userForm');
+		if ($ʟ_tmp instanceof Nette\Application\UI\Renderable) $ʟ_tmp->redrawControl(null, false);
+		$ʟ_tmp->render() /* line 11 */;
+
 		echo '
-</block>
 
+<h3>Users list</h3>
 
-<style>
-	html { font: normal 18px/1.3 Georgia, "New York CE", utopia, serif; color: #666; -webkit-text-stroke: 1px rgba(0,0,0,0); overflow-y: scroll; }
-	body { background: #3484d2; color: #333; margin: 2em auto; padding: 0 .5em; max-width: 600px; min-width: 320px; }
+<table border="1" cellpadding="5">
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+    </tr>
 
-	a { color: #006aeb; padding: 3px 1px; }
-	a:hover, a:active, a:focus { background-color: #006aeb; text-decoration: none; color: white; }
+';
+		foreach ($users as $u) /* line 27 */ {
+			echo '        <tr>
+            <td>';
+			echo LR\Filters::escapeHtmlText($u->id) /* line 29 */;
+			echo '</td>
+            <td>';
+			echo LR\Filters::escapeHtmlText($u->username) /* line 30 */;
+			echo '</td>
+            <td>';
+			echo LR\Filters::escapeHtmlText($u->first_name) /* line 31 */;
+			echo '</td>
+            <td>';
+			echo LR\Filters::escapeHtmlText($u->last_name) /* line 32 */;
+			echo '</td>
+            <td>';
+			echo LR\Filters::escapeHtmlText($u->email) /* line 33 */;
+			echo '</td>
+            <td>';
+			echo LR\Filters::escapeHtmlText($u->role) /* line 34 */;
+			echo '</td>
+            <td>
+                <a href="';
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('default', ['id' => $u->id])) /* line 36 */;
+			echo '">Edit</a> |
+                <a href="';
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('delete!', ['id' => $u->id])) /* line 37 */;
+			echo '" onclick="return confirm(\'Delete this user?\')">Delete</a>
+            </td>
+        </tr>
+';
 
-	#banner { border-radius: 12px 12px 0 0; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAB5CAMAAADPursXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGBQTFRFD1CRDkqFDTlmDkF1D06NDT1tDTNZDk2KEFWaDTZgDkiCDTtpDT5wDkZ/DTBVEFacEFOWD1KUDTRcDTFWDkV9DkR7DkN4DkByDTVeDC9TDThjDTxrDkeADkuIDTRbDC9SbsUaggAAAEdJREFUeNqkwYURgAAQA7DH3d3335LSKyxAYpf9vWCpnYbf01qcOdFVXc14w4BznNTjkQfsscAdU3b4wIh9fDVYc4zV8xZgAAYaCMI6vPgLAAAAAElFTkSuQmCC); }
+		}
 
-	h1 { font: inherit; color: white; font-size: 50px; line-height: 121px; margin: 0; padding-left: 4%; background: url(https://files.nette.org/images/logo-nette@2.png) no-repeat 95%; background-size: 130px auto; text-shadow: 1px 1px 0 rgba(0, 0, 0, .9); }
-	@media (max-width: 600px) {
-		h1 { background: none; font-size: 40px; }
+		echo '</table>';
 	}
 
-	#content { background: white; border: 1px solid #eff4f7; border-radius: 0 0 12px 12px; padding: 10px 4%; overflow: hidden; }
 
-	h2 { font: inherit; padding: 1.2em 0; margin: 0; }
+	public function prepare(): array
+	{
+		extract($this->params);
 
-	img { border: none; float: right; margin: 0 0 1em 3em; }
-</style>
-';
+		if (!$this->getReferringTemplate() || $this->getReferenceType() === 'extends') {
+			foreach (array_intersect_key(['u' => '27'], $this->params) as $ʟ_v => $ʟ_l) {
+				trigger_error("Variable \$$ʟ_v overwritten in foreach on line $ʟ_l");
+			}
+		}
+		return get_defined_vars();
 	}
 }
