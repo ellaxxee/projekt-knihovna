@@ -27,13 +27,8 @@ final class HomePresenter extends Nette\Application\UI\Presenter
             if ($user) {
                 $this['userForm']->setDefaults($user->toArray());
                 $this->template->editing = true;
-            } else {
-                $this->flashMessage('User not found');
-                $this->redirect('default');
             }
         }
-
-        $this->template->message = 'Library system - users';
     }
 
     protected function createComponentUserForm(): Form
@@ -58,28 +53,20 @@ final class HomePresenter extends Nette\Application\UI\Presenter
         $id = $this->getParameter('id');
         $username = strtolower($values->first_name . '.' . $values->last_name);
 
+        $data = [
+            'username' => $username,
+            'first_name' => $values->first_name,
+            'last_name' => $values->last_name,
+            'email' => $values->email,
+            'password' => password_hash($values->password, PASSWORD_DEFAULT),
+            'role' => $values->role,
+        ];
+
         if ($id) {
-            $user = $this->db->table('users')->get($id);
-            if ($user) {
-                $user->update([
-                    'username' => $username,
-                    'first_name' => $values->first_name,
-                    'last_name' => $values->last_name,
-                    'email' => $values->email,
-                    'password' => password_hash($values->password, PASSWORD_DEFAULT),
-                    'role' => $values->role,
-                ]);
-                $this->flashMessage('User updated');
-            }
+            $this->db->table('users')->get($id)?->update($data);
+            $this->flashMessage('User updated');
         } else {
-            $this->db->table('users')->insert([
-                'username' => $username,
-                'first_name' => $values->first_name,
-                'last_name' => $values->last_name,
-                'email' => $values->email,
-                'password' => password_hash($values->password, PASSWORD_DEFAULT),
-                'role' => $values->role,
-            ]);
+            $this->db->table('users')->insert($data);
             $this->flashMessage('User added');
         }
 
@@ -88,13 +75,8 @@ final class HomePresenter extends Nette\Application\UI\Presenter
 
     public function handleDelete(int $id): void
     {
-        $user = $this->db->table('users')->get($id);
-        if ($user) {
-            $user->delete();
-            $this->flashMessage('User deleted');
-        } else {
-            $this->flashMessage('User not found');
-        }
+        $this->db->table('users')->get($id)?->delete();
+        $this->flashMessage('User deleted');
         $this->redirect('this');
     }
 }

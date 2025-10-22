@@ -24,74 +24,99 @@ final class Template_d8799a0a8b extends Latte\Runtime\Template
 		echo '<base href="';
 		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 1 */;
 		echo '/">
+<link rel="stylesheet" href="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 2 */;
+		echo '/css/style.css">
 
-<h1>';
-		echo LR\Filters::escapeHtmlText($message) /* line 3 */;
-		echo '</h1>
+<div class="container">
+
+    <h1>Library reservation system</h1>
 
 ';
-		if ($editing) /* line 5 */ {
-			echo '    <h3>Edit user</h3>
-';
-		} else /* line 7 */ {
-			echo '    <h3>Add user</h3>
+		if (isset($message)) /* line 8 */ {
+			echo '        <div class="flash">';
+			echo LR\Filters::escapeHtmlText($message) /* line 9 */;
+			echo '</div>
 ';
 		}
-		echo "\n";
+		echo '
+    <div class="form-section">
+';
+		if ($editing) /* line 13 */ {
+			echo '            <h2>Edit users</h2>
+';
+		} else /* line 15 */ {
+			echo '            <h2>Add new users</h2>
+';
+		}
+		echo '
+        <div class="form-wrapper">
+';
 		$ʟ_tmp = $this->global->uiControl->getComponent('userForm');
 		if ($ʟ_tmp instanceof Nette\Application\UI\Renderable) $ʟ_tmp->redrawControl(null, false);
-		$ʟ_tmp->render() /* line 11 */;
+		$ʟ_tmp->render() /* line 20 */;
 
-		echo '
+		echo '        </div>
+    </div>
 
-<h3>Users list</h3>
+    <div class="list-section">
+        <h2>List of users</h2>
 
-<table border="1" cellpadding="5">
-    <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Email</th>
-        <th>Role</th>
-        <th>Actions</th>
-    </tr>
-
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>username</th>
+                    <th>name</th>
+                    <th>last name</th>
+                    <th>email</th>
+                    <th>role</th>
+                    <th>action</th>
+                </tr>
+            </thead>
+            <tbody>
 ';
-		foreach ($users as $u) /* line 27 */ {
-			echo '        <tr>
-            <td>';
-			echo LR\Filters::escapeHtmlText($u->id) /* line 29 */;
+		foreach ($users as $u) /* line 40 */ {
+			echo '                    <tr>
+                        <td>';
+			echo LR\Filters::escapeHtmlText($u->id) /* line 42 */;
 			echo '</td>
-            <td>';
-			echo LR\Filters::escapeHtmlText($u->username) /* line 30 */;
+                        <td>';
+			echo LR\Filters::escapeHtmlText($u->username) /* line 43 */;
 			echo '</td>
-            <td>';
-			echo LR\Filters::escapeHtmlText($u->first_name) /* line 31 */;
+                        <td>';
+			echo LR\Filters::escapeHtmlText($u->first_name) /* line 44 */;
 			echo '</td>
-            <td>';
-			echo LR\Filters::escapeHtmlText($u->last_name) /* line 32 */;
+                        <td>';
+			echo LR\Filters::escapeHtmlText($u->last_name) /* line 45 */;
 			echo '</td>
-            <td>';
-			echo LR\Filters::escapeHtmlText($u->email) /* line 33 */;
+                        <td>';
+			echo LR\Filters::escapeHtmlText($u->email) /* line 46 */;
 			echo '</td>
-            <td>';
-			echo LR\Filters::escapeHtmlText($u->role) /* line 34 */;
+                        <td>';
+			echo LR\Filters::escapeHtmlText($u->role) /* line 47 */;
 			echo '</td>
-            <td>
-                <a href="';
-			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('default', ['id' => $u->id])) /* line 36 */;
-			echo '">Edit</a> |
-                <a href="';
-			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('delete!', ['id' => $u->id])) /* line 37 */;
-			echo '" onclick="return confirm(\'Delete this user?\')">Delete</a>
-            </td>
-        </tr>
+                        <td class="actions">
+                            <a href="';
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('default', ['id' => $u->id])) /* line 49 */;
+			echo '" class="btn edit">edit</a>
+                            <a href="';
+			echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('delete!', ['id' => $u->id])) /* line 50 */;
+			echo '"
+                               onclick="return confirm(\'Are you sure you want to delete this user?\')"
+                               class="btn delete">delete</a>
+                        </td>
+                    </tr>
 ';
 
 		}
 
-		echo '</table>';
+		echo '
+                
+            </tbody>
+        </table>
+    </div>
+</div>';
 	}
 
 
@@ -100,7 +125,7 @@ final class Template_d8799a0a8b extends Latte\Runtime\Template
 		extract($this->params);
 
 		if (!$this->getReferringTemplate() || $this->getReferenceType() === 'extends') {
-			foreach (array_intersect_key(['u' => '27'], $this->params) as $ʟ_v => $ʟ_l) {
+			foreach (array_intersect_key(['u' => '40'], $this->params) as $ʟ_v => $ʟ_l) {
 				trigger_error("Variable \$$ʟ_v overwritten in foreach on line $ʟ_l");
 			}
 		}
