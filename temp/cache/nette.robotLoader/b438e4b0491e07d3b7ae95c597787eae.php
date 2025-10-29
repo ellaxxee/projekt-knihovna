@@ -15,12 +15,17 @@ return array (
     'App\\Presentation\\Home\\HomePresenter' => 
     array (
       0 => '/Applications/MAMP/htdocs/my-nette-project/app/Presentation/Home/HomePresenter.php',
-      1 => 1761131255,
+      1 => 1761149511,
     ),
     'App\\Presentation\\Users\\UsersPresenter' => 
     array (
       0 => '/Applications/MAMP/htdocs/my-nette-project/app/Presentation/Users/UsersPresenter.php',
       1 => 1761131257,
+    ),
+    'App\\Presentation\\Book\\BookPresenter' => 
+    array (
+      0 => '/Applications/MAMP/htdocs/my-nette-project/app/Presentation/Book/BookPresenter.php',
+      1 => 1761667288,
     ),
     'App\\Presentation\\Accessory\\LatteExtension' => 
     array (
@@ -43,6 +48,9 @@ return array (
     'null' => 3,
     'App\\Presentation\\Home\\HomeDefaultTemplate' => 3,
     'App\\Presentation\\Home\\HomeTemplate' => 3,
+    'App\\Presentation\\Book\\BookDefaultTemplate' => 3,
+    'App\\Presentation\\Book\\BookTemplate' => 3,
+    'App\\Presentation\\B\\BPresenter' => 2,
   ),
   2 => 
   array (

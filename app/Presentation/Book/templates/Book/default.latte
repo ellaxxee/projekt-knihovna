@@ -1,0 +1,58 @@
+<base href="{$basePath}/">
+<link rel="stylesheet" href="{$basePath}/css/style.css">
+
+<div class="container">
+    <h1>Správa knih</h1>
+
+    {if $editing}
+        <h3>Upravit knihu</h3>
+    {else}
+        <h3>Přidat novou knihu</h3>
+    {/if}
+
+    {control bookForm}
+
+    <h3>Seznam knih</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Název</th>
+            <th>Autor</th>
+            <th>ISBN</th>
+            <th>Rok vydání</th>
+            <th>Žánr</th>
+            <th>Celkem kopií</th>
+            <th>Dostupné</th>
+            <th>Přidáno</th>
+            <th>Akce</th>
+        </tr>
+
+        {foreach $books as $b}
+            <tr>
+                <td>{$b->id}</td>
+                <td>{$b->title}</td>
+                <td>{$b->author}</td>
+                <td>{$b->isbn}</td>
+                <td>{$b->publication_year}</td>
+                <td>{$b->genre}</td>
+                <td>{$b->total_copies}</td>
+                <td>{$b->available_copies}</td>
+                <td>{$b->added_at|date:'d.m.Y'}</td>
+                <td>
+                    <a n:href="default id => $b->id" class="btn edit">Upravit</a>
+                    <a n:href="delete! id => $b->id"
+                       onclick="return confirm('Opravdu smazat tuto knihu?')"
+                       class="btn delete">Smazat</a>
+                </td>
+            </tr>
+        {/foreach}
+
+        {if !count($books)}
+            <tr>
+                <td colspan="10" style="text-align:center; color:#777;">
+                    Žádné knihy zatím nejsou přidány.
+                </td>
+            </tr>
+        {/if}
+    </table>
+</div>

@@ -1,15 +1,21 @@
+{block content}
 <base href="{$basePath}/">
 <link rel="stylesheet" href="{$basePath}/css/style.css">
 
 <div class="container">
-
     <h1>Library reservation system</h1>
+
+    {if isset($welcome)}
+        <h2>{$welcome}</h2>
+    {/if}
+
+    <a n:href="Book:default" class="btn">Správa knih</a>
 
     {if isset($message)}
         <div class="flash">{$message}</div>
     {/if}
 
-    <div class="form-section">
+    <div class="form-section" style="margin-top:2rem;">
         {if $editing}
             <h2>Edit users</h2>
         {else}
@@ -21,19 +27,19 @@
         </div>
     </div>
 
-    <div class="list-section">
+    <div class="list-section" style="margin-top:2rem;">
         <h2>List of users</h2>
 
-        <table border ="1">
+        <table border="1" cellpadding="5">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>username</th>
-                    <th>name</th>
-                    <th>last name</th>
-                    <th>email</th>
-                    <th>role</th>
-                    <th>action</th>
+                    <th>Username</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,16 +52,23 @@
                         <td>{$u->email}</td>
                         <td>{$u->role}</td>
                         <td class="actions">
-                            <a n:href="default id => $u->id" class="btn edit">edit</a>
+                            <a n:href="default id => $u->id" class="btn edit">Edit</a>
                             <a n:href="delete! id => $u->id"
                                onclick="return confirm('Are you sure you want to delete this user?')"
-                               class="btn delete">delete</a>
+                               class="btn delete">Delete</a>
                         </td>
                     </tr>
                 {/foreach}
 
-                
+                {if !count($users)}
+                    <tr>
+                        <td colspan="7" style="text-align:center; color:#777;">
+                            No users added yet.
+                        </td>
+                    </tr>
+                {/if}
             </tbody>
         </table>
     </div>
 </div>
+{/block}
